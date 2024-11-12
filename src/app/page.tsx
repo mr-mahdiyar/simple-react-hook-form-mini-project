@@ -6,8 +6,8 @@ interface FormValues {
 import { useForm } from "react-hook-form";
 export default function Home() {
   const form = useForm<FormValues>();
-  const { register, handleSubmit } = form;
-
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
   function submitForm(data: FormValues) {
     console.log(data);
   }
@@ -22,15 +22,16 @@ export default function Home() {
             required: "username is required.",
           })}
         />
+        <p className="-translate-y-6 text-red-600">{errors.username?.message}</p>
         <input
           type="password"
           placeholder="password"
           className="border rounded-md p-2 outline-none"
           {...register("password", {
             required: "password is required.",
-            min: {value: 6, message: "password should be atleast 6 charachters."}
           })}
         />
+        <p className="-translate-y-6 text-red-600">{errors.password?.message}</p>
         <button type="submit" className="p-2 border rounded-md hover:bg-slate-100">
           submit
         </button>
