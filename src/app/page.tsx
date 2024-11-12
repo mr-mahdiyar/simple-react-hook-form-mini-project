@@ -2,14 +2,22 @@
 interface FormValues {
   username: string;
   password: string;
+  social: {
+    linkedin: string;
+    github: string;
+  }
 }
 import { useForm } from "react-hook-form";
 export default function Home() {
   const form = useForm<FormValues>({
     defaultValues: {
       username: "",
-      password: ""
-    }
+      password: "",
+      social: {
+        linkedin: "",
+        github: ""
+      }
+    },
   });
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
@@ -37,6 +45,18 @@ export default function Home() {
           })}
         />
         <p className="-translate-y-6 text-red-600">{errors.password?.message}</p>
+        <input
+          type="text"
+          placeholder="linkedin address"
+          className="border rounded-md p-2 outline-none"
+          {...register("social.linkedin")}
+        />
+        <input
+          type="text"
+          placeholder="github address"
+          className="border rounded-md p-2 outline-none"
+          {...register("social.github")}
+        />
         <button type="submit" className="p-2 border rounded-md hover:bg-slate-100">
           submit
         </button>
