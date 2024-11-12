@@ -5,7 +5,12 @@ interface FormValues {
 }
 import { useForm } from "react-hook-form";
 export default function Home() {
-  const form = useForm<FormValues>();
+  const form = useForm<FormValues>({
+    defaultValues: {
+      username: "",
+      password: ""
+    }
+  });
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
   function submitForm(data: FormValues) {
