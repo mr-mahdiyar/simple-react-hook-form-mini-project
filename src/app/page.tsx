@@ -1,5 +1,7 @@
 "use client";
+import { useForm } from "react-hook-form";
 export default function Home() {
+  const form = useForm();
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
       <form className="flex flex-col max-w-96 gap-y-8 border rounded-md p-16">
