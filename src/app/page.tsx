@@ -5,8 +5,10 @@ interface FormValues {
   social: {
     linkedin: string;
     github: string;
-  }
-  phoneNumbers: Array<string>
+  };
+  phoneNumbers: Array<string>;
+  age: number;
+  dateOfBirth: Date;
 }
 import { useForm } from "react-hook-form";
 export default function Home() {
@@ -16,9 +18,10 @@ export default function Home() {
       password: "",
       social: {
         linkedin: "",
-        github: ""
+        github: "",
       },
-      phoneNumbers: ["", ""]
+      phoneNumbers: ["", ""],
+      age: 0,
     },
   });
   const { register, handleSubmit, formState } = form;
@@ -47,6 +50,8 @@ export default function Home() {
           })}
         />
         <p className="-translate-y-6 text-red-600">{errors.password?.message}</p>
+        <input type="number" {...register("age", { valueAsNumber: true })} placeholder="age" />
+        <input type="date" {...register("dateOfBirth", { valueAsDate: true })} />
         <input
           type="text"
           placeholder="linkedin address"
