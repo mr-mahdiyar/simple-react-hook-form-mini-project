@@ -10,6 +10,7 @@ interface FormValues {
   age: number;
   dateOfBirth: Date;
 }
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 export default function Home() {
   const form = useForm<FormValues>({
@@ -24,11 +25,16 @@ export default function Home() {
       age: 0,
     },
   });
-  const { register, handleSubmit, formState } = form;
+  const { register, handleSubmit, formState, watch } = form;
   const { errors } = formState;
   function submitForm(data: FormValues) {
     console.log(data);
   }
+
+  useEffect(() => {
+    const subscription = watch((value) => console.log(value));
+    return () => subscription.unsubscribe();
+  }, [watch]);
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
       <form className="flex flex-col max-w-96 gap-y-8 border rounded-md p-16" onSubmit={handleSubmit(submitForm)} noValidate>
