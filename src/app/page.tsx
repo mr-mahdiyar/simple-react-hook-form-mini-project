@@ -6,6 +6,7 @@ interface FormValues {
     linkedin: string;
     github: string;
   }
+  phoneNumbers: Array<string>
 }
 import { useForm } from "react-hook-form";
 export default function Home() {
@@ -16,7 +17,8 @@ export default function Home() {
       social: {
         linkedin: "",
         github: ""
-      }
+      },
+      phoneNumbers: ["", ""]
     },
   });
   const { register, handleSubmit, formState } = form;
@@ -56,6 +58,18 @@ export default function Home() {
           placeholder="github address"
           className="border rounded-md p-2 outline-none"
           {...register("social.github")}
+        />
+        <input
+          type="text"
+          placeholder="primary phone"
+          className="border rounded-md p-2 outline-none"
+          {...register("phoneNumbers.0")}
+        />
+        <input
+          type="text"
+          placeholder="secondary phone"
+          className="border rounded-md p-2 outline-none"
+          {...register("phoneNumbers.1")}
         />
         <button type="submit" className="p-2 border rounded-md hover:bg-slate-100">
           submit
