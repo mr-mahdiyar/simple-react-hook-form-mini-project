@@ -26,23 +26,27 @@ export default function Home() {
     },
   });
   const { register, handleSubmit, formState, watch } = form;
-  const { errors, touchedFields, dirtyFields } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
   function submitForm(data: FormValues) {
     console.log(data);
   }
-  console.log("interacted fields: ", touchedFields)
-  console.log("inputs that their value changed: ", dirtyFields)
+  console.log("interacted fields: ", touchedFields);
+  console.log("inputs that their value changed: ", dirtyFields);
   useEffect(() => {
     const subscription = watch((value) => console.log(value));
     return () => subscription.unsubscribe();
   }, [watch]);
 
   function onError(error: FieldErrors) {
-    console.log(error)
+    console.log(error);
   }
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
-      <form className="flex flex-col max-w-96 gap-y-8 border rounded-md p-16" onSubmit={handleSubmit(submitForm, onError)} noValidate>
+      <form
+        className="flex flex-col max-w-96 gap-y-8 border rounded-md p-16"
+        onSubmit={handleSubmit(submitForm, onError)}
+        noValidate
+      >
         <input
           type="text"
           placeholder="user name"
@@ -88,7 +92,7 @@ export default function Home() {
           className="border rounded-md p-2 outline-none"
           {...register("phoneNumbers.1")}
         />
-        <button type="submit" className="p-2 border rounded-md hover:bg-slate-100">
+        <button disabled={!isDirty || !isValid} type="submit" className="p-2 border rounded-md hover:bg-slate-100">
           submit
         </button>
       </form>
