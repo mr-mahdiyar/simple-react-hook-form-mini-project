@@ -26,11 +26,12 @@ export default function Home() {
     },
   });
   const { register, handleSubmit, formState, watch } = form;
-  const { errors } = formState;
+  const { errors, touchedFields, dirtyFields } = formState;
   function submitForm(data: FormValues) {
     console.log(data);
   }
-
+  console.log("interacted fields: ", touchedFields)
+  console.log("inputs that their value changed: ", dirtyFields)
   useEffect(() => {
     const subscription = watch((value) => console.log(value));
     return () => subscription.unsubscribe();
@@ -46,6 +47,7 @@ export default function Home() {
             required: "username is required.",
           })}
         />
+
         <p className="-translate-y-6 text-red-600">{errors.username?.message}</p>
         <input
           type="password"
