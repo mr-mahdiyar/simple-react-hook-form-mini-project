@@ -25,13 +25,19 @@ export default function Home() {
       age: 0,
     },
   });
-  const { register, handleSubmit, formState, watch } = form;
-  const { errors, touchedFields, dirtyFields, isDirty, isValid } = formState;
+  const { register, handleSubmit, formState, watch, reset } = form;
+  const { errors, touchedFields, dirtyFields, isDirty, isValid, isSubmitSuccessful } = formState;
   function submitForm(data: FormValues) {
     console.log(data);
   }
   console.log("interacted fields: ", touchedFields);
   console.log("inputs that their value changed: ", dirtyFields);
+
+  useEffect(() => {
+    if(isSubmitSuccessful) {
+      reset()
+    }
+  }, [isSubmitSuccessful, reset])
   useEffect(() => {
     const subscription = watch((value) => console.log(value));
     return () => subscription.unsubscribe();
@@ -40,6 +46,7 @@ export default function Home() {
   function onError(error: FieldErrors) {
     console.log(error);
   }
+  
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
       <form
@@ -95,6 +102,7 @@ export default function Home() {
         <button disabled={!isDirty || !isValid} type="submit" className="p-2 border rounded-md hover:bg-slate-100">
           submit
         </button>
+        <button type="button" onClick={() => reset()}>Reset</button>
       </form>
     </div>
   );
