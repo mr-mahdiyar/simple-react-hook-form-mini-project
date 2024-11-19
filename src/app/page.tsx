@@ -11,7 +11,7 @@ interface FormValues {
   dateOfBirth: Date;
 }
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { type FieldErrors, useForm } from "react-hook-form";
 export default function Home() {
   const form = useForm<FormValues>({
     defaultValues: {
@@ -36,9 +36,13 @@ export default function Home() {
     const subscription = watch((value) => console.log(value));
     return () => subscription.unsubscribe();
   }, [watch]);
+
+  function onError(error: FieldErrors) {
+    console.log(error)
+  }
   return (
     <div className="flex justify-center items-center min-h-screen w-full">
-      <form className="flex flex-col max-w-96 gap-y-8 border rounded-md p-16" onSubmit={handleSubmit(submitForm)} noValidate>
+      <form className="flex flex-col max-w-96 gap-y-8 border rounded-md p-16" onSubmit={handleSubmit(submitForm, onError)} noValidate>
         <input
           type="text"
           placeholder="user name"
