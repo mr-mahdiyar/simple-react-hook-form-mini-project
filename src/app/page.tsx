@@ -24,10 +24,12 @@ export default function Home() {
       phoneNumbers: ["", ""],
       age: 0,
     },
+    mode: "onBlur"
   });
-  const { register, handleSubmit, formState, watch, reset } = form;
+  const { register, handleSubmit, formState, watch, reset, trigger } = form;
   const { errors, touchedFields, dirtyFields, isDirty, isValid, isSubmitSuccessful } = formState;
   function submitForm(data: FormValues) {
+    trigger();
     console.log(data);
   }
   console.log("interacted fields: ", touchedFields);
